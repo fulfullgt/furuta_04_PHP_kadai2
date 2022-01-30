@@ -1,11 +1,7 @@
 <?php
 //1.  DB接続します
-try {
-  //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=fulfull_book_db;charset=utf8;host=mysql57.fulfull.sakura.ne.jp','fulfull','Furu-1549');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+require_once('funcs.php');
+$pdo = db_conn();
 
 //２．SQL文を用意(データ取得：SELECT)
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
@@ -24,10 +20,17 @@ if($status==false) {
   //Selectデータの数だけ自動でループしてくれる
   //FETCH_ASSOC=http://php.net/manual/ja/pdostatement.fetch.php
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){ 
-    $view .= "<p>";
-    $view .= '【'. $result['bookname'].'】 '.$result['bookurl'].'   「'
-    .$result['bookcomment'].'」   (' .$result['date'].')';
-    $view .= "</p>";
+    $view .= '<p>';
+    $view .= '<a href="detail.php?uni='.$result['uni'].' ">';
+    $view .= $result["bookname"] . "：" . $result["bookurl"];
+    $view .= "「".$result["bookcomment"]."」";
+    $view .= '</a>';
+    $view .= '<a href="delete.php?uni='.$result['uni'].' ">';
+    $view .= '[ 削除 ]';
+    $view .= '</a>';
+    $view .= '</p>';
+    
+ 
   }
 
 }

@@ -8,12 +8,8 @@ $bookurl = $_POST['bookurl'];
 $bookcomment = $_POST['bookcomment'];
 
 // 2. DB接続します
-try {
-  //Password:MAMP='root',XAMPP=''
-  $pdo = new PDO('mysql:dbname=fulfull_book_db;charset=utf8;host=mysql57.fulfull.sakura.ne.jp','fulfull','Furu-1549');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+require_once('funcs.php');
+$pdo = db_conn();
 
 
 // ３．SQL文を用意(データ登録：INSERT)
