@@ -10,14 +10,16 @@ function h($str)
 // DB接続関数
 function db_conn(){
     try {
-        //Password:MAMP='root',XAMPP=''
-        $pdo = new PDO('mysql:dbname=fulfull_book_db;charset=utf8;host=mysql57.fulfull.sakura.ne.jp','fulfull','Furu-1549');
-        return $pdo;   
+      $db_name = "book_db";    //データベース名
+      $db_id   = "root";      //アカウント名
+      $db_pw   = "root";      //パスワード：XAMPPはパスワード無しに修正してください。
+      $db_host = "localhost"; //DBホスト
+      $pdo = new PDO('mysql:dbname=' . $db_name . ';charset=utf8;host=' . $db_host, $db_id, $db_pw);
+      return $pdo;//ここを追加！！
     } catch (PDOException $e) {
-        exit('DBConnectError:'.$e->getMessage());
-      }
-
-}
+        exit('DB Connection Error:' . $e->getMessage());
+    }
+  }
 
 // エラー関数
 function sql_error($stmt)
@@ -33,6 +35,14 @@ function redirect($file_name)
     exit();
 }
 
-
+//ログインチェック
+function loginCheck(){
+    if( $_SESSION['chk_ssid'] != session_id() ){
+      exit('LOGIN ERROR');
+    }else{
+      session_regenerate_id(true);
+      $_SESSION['chk_ssid'] = session_id();
+    }
+  }
 
 

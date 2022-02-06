@@ -1,10 +1,13 @@
 <?php
-//1.外部ファイル読み込みしてDB接続
+session_start();
+
 require_once('funcs.php');
-$pdo = db_conn();
+
+loginCheck();
 
 //2.対象のUNIを取得
 $uni = $_GET['uni'];
+$pdo = db_conn();
 
 //3．データ登録SQL作成
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table WHERE uni=:uni;");

@@ -1,6 +1,18 @@
 <?php
-//1.  DB接続します
+//SESSIONスタート
+session_start();
+
+//関数を呼び出す
 require_once('funcs.php');
+
+//ログインチェック
+
+loginCheck();
+
+//以下ログインユーザーのみ
+$user_name = $_SESSION['name'];
+$kanri_flg = $SESSION['kanri_flg'];
+
 $pdo = db_conn();
 
 //２．SQL文を用意(データ取得：SELECT)

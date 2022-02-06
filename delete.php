@@ -1,4 +1,14 @@
 <?php
+//SESSIONスタート
+session_start();
+
+//関数を呼び出す
+require_once('funcs.php');
+
+//ログインチェック
+loginCheck();
+//以下ログインユーザーのみ
+
 //selsect.phpから処理を持ってくる
 //1.対象のIDを取得
 $uni= $_GET['uni'];
